@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showInfo(MainActivity.this);
-                Toast.makeText(MainActivity.this, "hello world 2006" , Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "hello world 2006" , Toast.LENGTH_SHORT).show();
             }
         });
         Toast.makeText(this, "hello world 2005" , Toast.LENGTH_SHORT).show();
