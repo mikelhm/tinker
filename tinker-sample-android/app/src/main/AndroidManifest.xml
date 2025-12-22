@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
+
     <application
         android:name=".app.SampleApplication"
         android:icon="@mipmap/ic_launcher"
@@ -15,7 +17,7 @@
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false"/>
 
-        <activity android:name=".app.MainActivity">
+        <activity android:name=".app.MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

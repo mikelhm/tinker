@@ -31,6 +31,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -41,6 +43,8 @@ import com.tencent.tinker.lib.tinker.TinkerInstaller;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 import com.tencent.tinker.loader.shareutil.ShareTinkerInternals;
 
+import java.io.File;
+
 import tinker.sample.android.R;
 import tinker.sample.android.util.Utils;
 
@@ -48,11 +52,24 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "Tinker.MainActivity";
 
     private TextView mTvMessage = null;
-
+    private FilePermissionManager permissionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // 初始化权限管理器
+        permissionManager = new FilePermissionManager(this);
+
+        // 检查权限
+        if (!permissionManager.checkFilePermission()) {
+            // 请求权限
+            permissionManager.requestFilePermission();
+        }
+        performFileOperations();
+
+    }
+
+    private void  performFileOperations() {
         boolean isARKHotRunning = ShareTinkerInternals.isArkHotRuning();
         Log.e(TAG, "ARK HOT Running status = " + isARKHotRunning);
         Log.e(TAG, "i am on onCreate classloader:" + MainActivity.class.getClassLoader().toString());
@@ -69,7 +86,10 @@ public class MainActivity extends AppCompatActivity {
         loadPatchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(), Environment.getExternalStorageDirectory().getAbsolutePath() + "/patch_signed_7zip.apk");
+                String patchFilePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + "/patch_signed_7zip.apk";
+                File patchFile = new File(patchFilePath);
+                Log.d("lhmtesting", "patch file " + patchFilePath + ", is exist = " + patchFile.exists());
+                TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(), patchFilePath);
             }
         });
 
@@ -116,8 +136,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showInfo(MainActivity.this);
+//                Toast.makeText(MainActivity.this, "hello world 2006" , Toast.LENGTH_SHORT).show();
             }
         });
+        Toast.makeText(this, "hello world 2005" , Toast.LENGTH_SHORT).show();
     }
 
     private void askForRequiredPermissions() {
