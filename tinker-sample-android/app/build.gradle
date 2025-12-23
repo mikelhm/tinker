@@ -1,8 +1,5 @@
 apply plugin: 'com.android.application'
 
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.crashlytics'
-
 dependencies {
     if (is_gradle_3()) {
         implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -35,14 +32,6 @@ dependencies {
 //    compile group: 'com.google.guava', name: 'guava', version: '19.0'
 //    compile "org.scala-lang:scala-library:2.11.7"
     }
-
-    // Import the BoM for the Firebase platform
-    implementation(platform("com.google.firebase:firebase-bom:34.7.0"))
-
-    // Add the dependencies for the Crashlytics and Analytics libraries
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation("com.google.firebase:firebase-crashlytics")
-    implementation("com.google.firebase:firebase-analytics")
 }
 
 def gitSha() {
@@ -61,7 +50,7 @@ def javaVersion = JavaVersion.VERSION_1_7
 
 android {
     namespace "tinker.sample.android"
-    compileSdkVersion 35
+    compileSdkVersion 34
     buildToolsVersion '34.0.0'
 
     compileOptions {
@@ -92,8 +81,8 @@ android {
 
     defaultConfig {
         applicationId "tinker.sample.android"
-        minSdkVersion 23
-        targetSdkVersion 35
+        minSdkVersion 21
+        targetSdkVersion 34
         versionCode 1
         versionName "1.0.0"
         /**
@@ -152,12 +141,6 @@ android {
     packagingOptions {
         exclude "/META-INF/**"
     }
-
-    compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
-    }
-
     buildFeatures {
         buildConfig = true
     }

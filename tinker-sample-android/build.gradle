@@ -15,8 +15,6 @@ buildscript {
             changing = TINKER_VERSION?.endsWith("-SNAPSHOT")
             exclude group: 'com.android.tools.build', module: 'gradle'
         }
-        classpath 'com.google.gms:google-services:4.4.4'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.6'
     }
     configurations.all {
         it.resolutionStrategy.cacheDynamicVersionsFor(5, 'minutes')
